@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { Lobby } from "../composables/useLobby"
+import OnlinePlayerList from "../components/OnlinePlayerList.vue";
 
-const { current_nickname, current_id, players, onlineCount } = Lobby()
+
+const { current_nickname, current_id} = Lobby()
 </script>
 
 <template>
@@ -11,18 +13,8 @@ const { current_nickname, current_id, players, onlineCount } = Lobby()
       <p>欢迎回来，用户{{ current_nickname }}！你的唯一id是：{{ current_id }}</p>
     </div>
 
-    <div>
-      <span>当前在线人数 {{ onlineCount }}</span>
-      <div>
-        <div
-          class="player-table"
-          v-for="player in players"
-          :key="player.player_id"
-        >
-          <span>{{ player.nickname }}</span>
-          <span class="player-id">ID: {{ player.player_id }}</span>
-        </div>
-      </div>
+    <div class="player-list-container">
+      <OnlinePlayerList />
     </div>
   </div>
 </template>
