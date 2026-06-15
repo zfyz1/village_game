@@ -1,10 +1,30 @@
+<!-- test.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <title>Socket.IO 测试</title>
 </head>
 <body>
-$END$
+    <h1>Socket.IO 测试</h1>
+    <div id="status">等待连接...</div>
+
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script>
+        const socket = io('http://localhost:5000');
+
+        socket.on('connect', () => {
+            console.log('✅ 连接成功');
+            document.getElementById('status').innerHTML = '✅ 已连接';
+            socket.emit('login', { nickname: '浏览器测试' });
+        });
+
+        socket.on('login_success', (data) => {
+            console.log('✅ 登录成功', data);
+        });
+
+        socket.on('lobby_state', (data) => {
+            console.log('📢 大厅状态', data);
+        });
+    </script>
 </body>
 </html>
